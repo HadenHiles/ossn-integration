@@ -93,9 +93,9 @@
   ?>
   <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>"
   data-custom="<?php echo esc_attr( $args['ossn_custom_data'] ); ?>"
-  name="ossn_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="<?php echo $options[ $args['label_for'] ?>" />
+  name="ossn_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="<?php echo $options[$args['label_for']]; ?>" />
   <p class="description">
-  <?php esc_html_e( 'API Key', 'ossn' ); ?>
+  <?php esc_html_e( 'API Key (found in OSSNServices plugin in OSSN dashboard)', 'ossn' ); ?>
   </p>
   <?php
  }
