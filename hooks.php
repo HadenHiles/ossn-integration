@@ -1,5 +1,5 @@
 <?php
-add_action( 'profile_update', 'user_profile_update', 10, 2 );
+add_action( 'personal_options_update', 'user_profile_update', 10, 2 );
 
 function user_profile_update( $user_id, $old_user_data ) {
     // Retrieve api key
@@ -17,20 +17,17 @@ function user_profile_update( $user_id, $old_user_data ) {
     //update the ossn user email
     $update_ossn_user_response = update_ossn_user_email($api_key, $ossn_user, $new_email);
 
-    if ($update_ossn_user_response != false && !empty($update_ossn_user_response) && $update_ossn_user_response != null) {
-      ?>
-      <div class="mepr_updated" id="mepr_jump">
-        <ul>
-            <li><strong>Success</strong>: Your account has been updated!
-        </ul>
-      </div>
-      <?php
-    } else {
+    if ($update_ossn_user_response->code != '100') {
+      $args = array(
+        'ID'         => $user_id,
+        'user_email' => $old_user_data->user_email
+      );
+      wp_update_user( $args );
       ?>
       <div class="mepr_error" id="mepr_jump">
         <ul>
             <li>
-              <strong>Error</strong>: There was an error updating your email in The Pond Squad! Please contact the system administrator (haden@howtohockey.com).
+              <strong>Error</strong>: There was an error updating your email address! Please contact the <a href="mailto:haden@howtohockey.com">system administrator</a>.
               <?php
               if (!empty($update_ossn_user_response->message)) {
                 ?>
